@@ -10,11 +10,6 @@ app.use(express.static('public'));
 
 app.use(require('./routes/api'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/social-hub', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
 mongoose.set('debug', true);
 
 app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));
