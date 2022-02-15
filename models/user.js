@@ -32,9 +32,9 @@ const UserSchema = new Schema(
     }
   );
 
-//UserSchema.virtual('friendCount').get(function() {
-  //return this.friends.reduce((total, comment) => total + comment.replies.length + 1, 0);
-//});
+UserSchema.virtual('friendCount').get(function() {
+  return this.thoughts.length;
+});
 
 const User = model('User', UserSchema);
 
