@@ -23,12 +23,12 @@ router
 
 // /api/users/:userId/friends
 router 
-  .route('/:id/friends')
+  .route('/:userId/friends')
   .put(addFriend);
 
 // /api/users/:userId/friends/:friendId
 router 
-  .route('/:id/friends/:id')
+  .route('/:userId/friends/:id')
   //.delete(removeFriend);
 
 

@@ -75,17 +75,14 @@ const userController = {
 
     //add Friend
     addFriend({ params, body }, res) {
-      console.log(params);
-        console.log(body);
       User.findOneAndUpdate(
         
         { _id: params.userId },
-        { $push: { friends: body } },
+        { $push: { friends: body.friend } },
         { new: true}
         
       )
         .then(dbUserData => {
-          console.log(dbUserData);
           if (!dbUserData) {
             res.status(404).json({ message: 'No user found with this id!' });
             return;
