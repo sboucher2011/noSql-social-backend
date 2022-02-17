@@ -6,6 +6,24 @@ var validateEmail = function(email) {
   return re.test(email)
 };
 
+const FriendSchema = new Schema(
+  {
+    friendId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId()
+    },
+    username: {
+      type: String,
+      required: true,
+    }
+  },
+  {
+    toJSON: {
+      getters: true
+    }
+  }
+);
+
 const UserSchema = new Schema(
     {
       username: {
@@ -22,7 +40,7 @@ const UserSchema = new Schema(
         validate: [validateEmail, 'Please fill a valid email address'],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
       },
-      friends: [],
+      friends: [FriendSchema],
       thoughts: [
         {
           type: Schema.Types.ObjectId,
@@ -44,7 +62,7 @@ UserSchema.virtual('thoughtCount').get(function() {
 });
 
 UserSchema.virtual('friendCount').get(function() {
-  return this.thoughts.length;
+  return this.friends.length;
 });
 
 const User = model('User', UserSchema);
