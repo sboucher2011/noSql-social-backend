@@ -21,10 +21,14 @@ router
   .put(updateUser)
   .delete(deleteUser);
 
-// /api/users/:userId/friends/:friendId
+// /api/users/:userId/friends
 router 
   .route('/:id/friends')
   .put(addFriend);
+
+// /api/users/:userId/friends/:friendId
+router 
+  .route('/:id/friends/:id')
   //.delete(removeFriend);
 
 
