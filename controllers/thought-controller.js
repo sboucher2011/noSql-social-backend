@@ -2,7 +2,7 @@ const { Thought, User } = require('../models');
 
 const thoughtController = {
   // add thought to user
-  addThought( {body }, res) {
+  addThought({ body }, res) {
     Thought.create(body)
       .then(({ _id }) => {
         return User.findOneAndUpdate(
@@ -48,6 +48,29 @@ const thoughtController = {
       });
   },
 
+  // get one thought by id
+  getThoughtById({ params }, res) {
+    console.log(params);
+    Thought.findOne({ thoughtId: params.id })
+    
+      .populate({
+        path: 'reactions',
+        select: '-__v'
+      })
+      .select('-__v')
+      .then(dbThoughtData => {
+        if (!dbThoughtData) {
+          res.status(404).json({ message: 'No thought found with this id!' });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  },
+
   // remove thought
   removeThought({ params }, res) {
     console.log(params)
@@ -87,12 +110,14 @@ const thoughtController = {
     console.log(params)
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
-      { $pull:  
-        { reactions:
+      {
+        $pull:
+        {
+          reactions:
           {
-            reactionId: params.reactionId  
+            reactionId: params.reactionId
           }
-        } 
+        }
       },
       { new: true }
     )

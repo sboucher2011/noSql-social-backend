@@ -23,7 +23,7 @@ npm start
 In your terminal naviagte to the main folder of the program (where the server.js file is located) and install: npm, sequalize, and mongoose. Then run the npm start command and your api's will be working.
 
 Walkthrough Video:
-
+https://youtu.be/xLM753gtcR0
 
 ## Credits
 * Node
